@@ -1,8 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Robot } from 'src/app/models/robot';
 import { Task } from 'src/app/models/task';
-import { RobotService } from 'src/app/services/robot.service';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -11,21 +9,19 @@ import { TaskService } from 'src/app/services/task.service';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit, OnDestroy {
+  @Output()
+  public taskSelected = new EventEmitter<Task>();
+
   private readonly subs: Subscription[] = [];
 
-  public robot: Robot | null = null;
+  public chosenTask = '';
   public tasks: Task[] = [];
 
   constructor(
-    private readonly robotService: RobotService,
     private readonly taskService: TaskService
   ) { }
 
   ngOnInit(): void {
-    this.subs.push(
-      this.robotService.current().subscribe((robot: Robot) => this.robot = robot)
-    );
-
     this.subs.push(
       this.taskService.tasks().subscribe((tasks: Task[]) => this.tasks = tasks)
     );
@@ -35,5 +31,15 @@ export class TasksComponent implements OnInit, OnDestroy {
       this.subs.forEach((sub: Subscription) => {
         sub.unsubscribe();
       });
+  }
+
+  public pickTask(): void {
+    var task = this.tasks.find((t: Task) => t.description === this.chosenTask);
+
+    if (task) {
+      this.taskSelected.emit(task);
+    }
+
+    this.chosenTask = '';
   }
 }

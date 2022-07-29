@@ -1,0 +1,26 @@
+<div *ngIf="!!robot">
+  <div fxLayout="row">
+    <div fxFlex="100%" fxLayoutAlign="center">
+      <h2>Work with {{ robot.name }}</h2> <h3>({{ type }} Robot)</h3>
+    </div>
+  </div>
+  <div fxLayout="row">
+    <div class="col-2">
+      <app-tasks (taskSelected)="taskSelected($event)"></app-tasks>
+      </div>
+    <div class="col-2">
+      <mat-list>
+        <mat-list-item
+          *ngFor="let task of tasks"
+        >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="task item"
+            fontIcon="fiber_manual_record"
+            inline="true"
+          ></mat-icon> {{ task.description }}
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+</div>
