@@ -1,12 +1,17 @@
-<div *ngIf="!!robot">
-  <div fxLayout="row">
-    <div fxFlex="100%" fxLayoutAlign="center">
-      <h2>Work with {{robot.name}}</h2>
-    </div>
-  </div>
-  <div fxLayout="row">
-    <div fxFlex="100%" fxLayoutAlign="center">
-      <h3>A {{robot.type}} Robot</h3>
-    </div>
+<div fxLayout="row">
+  <div fxFlex="100%" fxLayoutAlign="left">
+    <mat-form-field appearance="fill">
+      <mat-label>Pick up to 5 Tasks</mat-label>
+      <mat-select
+        name="task"
+        [(ngModel)]="chosenTask"
+        (selectionChange)="pickTask()"
+      >
+        <mat-option value=""></mat-option>
+        <mat-option *ngFor="let task of tasks" value="{{ task.description }}">
+          {{ task.description }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 </div>
