@@ -1,5 +1,6 @@
 import { BehaviorSubject, Observable } from "rxjs";
 import { Robot } from "./robot";
+import { RobotTypes } from "./robot-types";
 import { Task } from "./task";
 
 export abstract class BaseRobot implements Robot {
@@ -7,13 +8,18 @@ export abstract class BaseRobot implements Robot {
   private readonly _tasks = new BehaviorSubject<Task[]>([]);
   private readonly _processedTasks = new BehaviorSubject<string>('');
 
+  public readonly type: string = '';
+
   constructor(
     public readonly name: string,
-    private readonly adjustment: number
+    private readonly adjustment: number,
+    robotType: RobotTypes
   ) {
     if (adjustment === 0) {
       this.adjustment = 1;
     }
+
+    this.type = RobotTypes[robotType];
   }
 
   public addTask(task: Task): void {

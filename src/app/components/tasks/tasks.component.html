@@ -1,2 +1,12 @@
-<div fxLayout="row" fxLayoutAlign="center">
+<div *ngIf="!!robot">
+  <div fxLayout="row">
+    <div fxFlex="100%" fxLayoutAlign="center">
+      <h2>Work with {{robot.name}}</h2>
+    </div>
+  </div>
+  <div fxLayout="row">
+    <div fxFlex="100%" fxLayoutAlign="center">
+      <h3>A {{robot.type}} Robot</h3>
+    </div>
+  </div>
 </div>
