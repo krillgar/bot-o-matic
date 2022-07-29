@@ -1,0 +1,17 @@
+<div
+  class="row"
+  fxLayout="row"
+  fxLayoutAlign="justify"
+  *ngFor="let robot of robotList"
+>
+  <div fxFlex="100%">
+    <mat-label>{{robot.name}}</mat-label>
+    <button
+      mat-flat-button
+      color="accent"
+      (click)="editRobot(robot)"
+    >
+      Edit
+    </button>
+  </div>
+</div>

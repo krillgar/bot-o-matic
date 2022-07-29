@@ -1,0 +1,36 @@
+<form class="robot-form">
+  <div fxLayout="row">
+    <div fxFlex="100%" fxLayoutAlign="center">
+      <h2>Create your robot</h2>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="left">
+    <div fxFlex="100%">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter name</mat-label>
+        <input matInput placeholder="Name" name="name" [(ngModel)]="name">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose Type</mat-label>
+        <mat-select [(ngModel)]="type" name="type">
+          <mat-option value=""></mat-option>
+          <mat-option *ngFor="let type of types" value="{{type}}">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center" class="wrapper">
+    <div fxFlex="100%">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="onSubmit()"
+      >
+        Add
+      </button>
+    </div>
+  </div>
+</form>
+<app-robot-list></app-robot-list>
