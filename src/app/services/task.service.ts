@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import * as taskSource from '../../assets/tasks.json';
+import taskSource from '../../assets/tasks.json';
 import { Task } from '../models/task';
 
 @Injectable({
@@ -12,8 +12,7 @@ export class TaskService {
   private _tasks: BehaviorSubject<Task[]> | null = null;
 
   constructor() {
-    //this.taskList = !!taskSource ? [...taskSource] : [];
-    this.taskList = [];
+    this.taskList = !!taskSource ? [...taskSource] : [];
   }
 
   public tasks(): Observable<Task[]> {

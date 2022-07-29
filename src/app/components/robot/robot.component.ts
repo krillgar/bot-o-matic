@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RobotTypes } from 'src/app/models/robot-types';
 import { RobotService } from 'src/app/services/robot.service';
-import * as taskSource from '../../../assets/tasks.json';
 
 @Component({
   selector: 'app-robot',
@@ -18,9 +17,7 @@ export class RobotComponent implements OnInit {
     this.types = Object.keys(RobotTypes).filter((type) => isNaN(parseInt(type)));
   }
 
-  ngOnInit(): void {
-    // console.log(`Robot Component init, and taskSource is: ${taskSource}`);
-  }
+  ngOnInit(): void { }
 
   public onSubmit(): void {
     if (typeof this.type === 'string') {
