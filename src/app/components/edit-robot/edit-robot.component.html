@@ -10,12 +10,26 @@
         [disableSelect]="tasks.length >= 5"
         (taskSelected)="taskSelected($event)"
       ></app-tasks>
+
+      <div fxLayout="row">
+        <div fxFlex="100%" fxLayoutAlign="left">
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="runTasks()"
+            [disabled]="disableButton"
+          >
+            Run Tasks
+          </button>
+        </div>
+      </div>
       </div>
     <div class="col2">
       <mat-chip-list aria-label="List of Tasks">
         <mat-chip
           *ngFor="let task of tasks"
           color="primary"
+          selected
         >
           {{ task.description }}
           <button matChipRemove (click)="removeTask(task)">
@@ -23,6 +37,31 @@
           </button>
         </mat-chip>
       </mat-chip-list>
+    </div>
+  </div>
+  <div fxLayout="row" class="completed-list">
+    <div fxFlex="100%" fxLayoutAlign="left">
+      <mat-list>
+        <mat-list-item
+          *ngFor="let task of completedTasks"
+        >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="completed item"
+            fontIcon="fiber_manual_record"
+            inline="true"
+          ></mat-icon> {{ task }}
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+  <div
+    fxLayout="row"
+    *ngIf="total !== 0 && completedTasks.length === tasks.length"
+    class="total"
+  >
+    <div fxFlex="100%" fxLayoutAlign="left">
+      <h4>Completed all tasks in {{ total }} milliseconds.</h4>
     </div>
   </div>
 </div>

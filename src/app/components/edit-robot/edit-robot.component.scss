@@ -7,7 +7,22 @@ div.col1 {
   width: 35%;
 }
 
-div.col-2 {
+div.col2 {
   width: 60%;
   margin-left: 5%;
+  margin-top: .75rem;
+}
+
+mat-list-item mat-icon {
+  font-size: .75rem;
+  margin-top: 1.25rem;
+  margin-right: .5rem;
+}
+
+.completed-list {
+  margin-top: 1rem;
+}
+
+.total {
+  margin-top: .75rem;
 }
