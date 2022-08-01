@@ -15,6 +15,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { EditRobotComponent } from './components/edit-robot/edit-robot.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MatChipsModule } from '@angular/material/chips';
     FormsModule,
     MatButtonModule,
     MatIconModule,
-    MatChipsModule
+    MatChipsModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

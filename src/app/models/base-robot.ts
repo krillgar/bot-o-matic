@@ -35,7 +35,12 @@ export abstract class BaseRobot implements Robot {
       let time = task.eta * this.adjustment;
       total += time;
 
-      this._processedTasks.next(`Completed ${task.description} in ${time} milliseconds.`);
+      setTimeout(
+        () => {
+          this._processedTasks.next(`Completed ${task.description} in ${time} milliseconds.`);
+        },
+        time
+      );
     });
 
     return total;

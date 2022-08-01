@@ -14,9 +14,12 @@ export class EditRobotComponent implements OnInit, OnDestroy {
   private readonly anCharacters = ['a', 'e', 'h', 'i', 'o', 'y'];
   private readonly subs: Subscription[] = [];
 
+  public completedTasks: string[] = [];
   public robot: Robot | null = null;
   public tasks: Task[] = [];
+  public total = 0;
   public type = '';
+  public disableButton = !!this.robot && this.tasks.length === 0;
 
   constructor(
     private readonly robotService: RobotService,
@@ -33,6 +36,13 @@ export class EditRobotComponent implements OnInit, OnDestroy {
           this.type = `${article} ${robot.type}`;
 
           this.subs.push(this.robot.tasks().subscribe((tasks: Task[]) => this.tasks = tasks));
+
+          this.subs.push(
+            this.robot.processedTasks().subscribe((item: string) => {
+              if (item.trim().length > 0) {
+                this.completedTasks.push(item);
+              }
+            }));
         }
       })
     );
@@ -50,5 +60,12 @@ export class EditRobotComponent implements OnInit, OnDestroy {
     this.robot?.removeTask(task);
 
     this.taskService.addTask(task);
+  }
+
+  public runTasks(): void {
+    this.completedTasks = [];
+    this.total = 0;
+
+    this.total = this.robot?.performTasks() ?? 0;
   }
 }
