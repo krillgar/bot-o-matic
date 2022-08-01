@@ -8,5 +8,6 @@ export interface Robot {
   addTask: (task: Task) => void;
   performTasks: () => number;
   processedTasks: () => Observable<string>;
+  removeTask: (task: Task) => void;
   tasks: () => Observable<Task[]>;
 }

@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Robot } from 'src/app/models/robot';
 import { Task } from 'src/app/models/task';
 import { RobotService } from 'src/app/services/robot.service';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-edit-robot',
@@ -18,7 +19,8 @@ export class EditRobotComponent implements OnInit, OnDestroy {
   public type = '';
 
   constructor(
-    private readonly robotService: RobotService
+    private readonly robotService: RobotService,
+    private readonly taskService: TaskService
   ) { }
 
   ngOnInit(): void {
@@ -42,5 +44,11 @@ export class EditRobotComponent implements OnInit, OnDestroy {
 
   public taskSelected(task: Task): void {
     this.robot?.addTask(task);
+  }
+
+  public removeTask(task: Task): void {
+    this.robot?.removeTask(task);
+
+    this.taskService.addTask(task);
   }
 }
