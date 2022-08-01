@@ -6,6 +6,8 @@
         name="task"
         [(ngModel)]="chosenTask"
         (selectionChange)="pickTask()"
+        [disabled]="disableSelect"
+        #select
       >
         <mat-option value=""></mat-option>
         <mat-option *ngFor="let task of tasks" value="{{ task.description }}">

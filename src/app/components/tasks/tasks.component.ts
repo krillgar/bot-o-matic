@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { MatSelect } from '@angular/material/select';
 import { Subscription } from 'rxjs';
 import { Task } from 'src/app/models/task';
 import { TaskService } from 'src/app/services/task.service';
@@ -9,8 +10,12 @@ import { TaskService } from 'src/app/services/task.service';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit, OnDestroy {
+  @Input()
+  public disableSelect = false;
   @Output()
   public taskSelected = new EventEmitter<Task>();
+  @ViewChild('select')
+  public select!: MatSelect;
 
   private readonly subs: Subscription[] = [];
 
@@ -22,8 +27,17 @@ export class TasksComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.taskService.resetTasks();
+
     this.subs.push(
-      this.taskService.tasks().subscribe((tasks: Task[]) => this.tasks = tasks)
+      this.taskService.tasks().subscribe(
+        (tasks: Task[]) => {
+          this.tasks = tasks;
+
+          if (!!this.select) {
+            this.select.value = null;
+          }
+        })
     );
   }
 
@@ -36,10 +50,11 @@ export class TasksComponent implements OnInit, OnDestroy {
   public pickTask(): void {
     var task = this.tasks.find((t: Task) => t.description === this.chosenTask);
 
+    this.chosenTask = '';
+
     if (task) {
       this.taskSelected.emit(task);
+      this.taskService.removeTask(task);
     }
-
-    this.chosenTask = '';
   }
 }

@@ -5,22 +5,24 @@
     </div>
   </div>
   <div fxLayout="row">
-    <div class="col-2">
-      <app-tasks (taskSelected)="taskSelected($event)"></app-tasks>
+    <div class="col1">
+      <app-tasks
+        [disableSelect]="tasks.length >= 5"
+        (taskSelected)="taskSelected($event)"
+      ></app-tasks>
       </div>
-    <div class="col-2">
-      <mat-list>
-        <mat-list-item
+    <div class="col2">
+      <mat-chip-list aria-label="List of Tasks">
+        <mat-chip
           *ngFor="let task of tasks"
+          color="primary"
         >
-          <mat-icon
-            aria-hidden="false"
-            aria-label="task item"
-            fontIcon="fiber_manual_record"
-            inline="true"
-          ></mat-icon> {{ task.description }}
-        </mat-list-item>
-      </mat-list>
+          {{ task.description }}
+          <button matChipRemove (click)="removeTask(task)">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-list>
     </div>
   </div>
 </div>

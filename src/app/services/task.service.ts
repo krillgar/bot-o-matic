@@ -7,19 +7,33 @@ import { Task } from '../models/task';
   providedIn: 'root'
 })
 export class TaskService {
-  private readonly taskList: Task[];
+  private taskList: Task[] = [];
 
-  private _tasks: BehaviorSubject<Task[]> | null = null;
+  private _tasks = new BehaviorSubject<Task[]>([]);
 
   constructor() {
-    this.taskList = !!taskSource ? [...taskSource] : [];
+    this.resetTasks();
   }
 
   public tasks(): Observable<Task[]> {
-    if (!this._tasks) {
-      this._tasks = new BehaviorSubject<Task[]>(this.taskList);
-    }
-
     return this._tasks;
+  }
+
+  public addTask(task: Task): void {
+    this.taskList.push(task);
+
+    this._tasks.next(this.taskList);
+  }
+
+  public removeTask(task: Task): void {
+    this.taskList = this.taskList.filter((t: Task) => t.description !== task.description);
+
+    this._tasks.next(this.taskList);
+  }
+
+  public resetTasks(): void {
+    this.taskList = !!taskSource ? [...taskSource] : [];
+
+    this._tasks.next(this.taskList);
   }
 }

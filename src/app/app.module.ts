@@ -13,8 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { RobotListComponent } from './components/robot-list/robot-list.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { EditRobotComponent } from './components/edit-robot/edit-robot.component';
-import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -34,8 +34,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatSelectModule,
     FormsModule,
     MatButtonModule,
-    MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

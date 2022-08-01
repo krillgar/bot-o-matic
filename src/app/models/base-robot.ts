@@ -4,7 +4,7 @@ import { RobotTypes } from "./robot-types";
 import { Task } from "./task";
 
 export abstract class BaseRobot implements Robot {
-  private readonly taskList: Task[] = [];
+  private taskList: Task[] = [];
   private readonly _tasks = new BehaviorSubject<Task[]>([]);
   private readonly _processedTasks = new BehaviorSubject<string>('');
 
@@ -43,6 +43,12 @@ export abstract class BaseRobot implements Robot {
 
   public processedTasks(): Observable<string> {
     return this._processedTasks;
+  }
+
+  public removeTask(task: Task): void {
+    this.taskList = this.taskList.filter((t: Task) => t.description !== task.description);
+
+    this._tasks.next(this.taskList);
   }
 
   public tasks(): Observable<Task[]> {
