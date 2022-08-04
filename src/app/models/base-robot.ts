@@ -32,7 +32,15 @@ export abstract class BaseRobot implements Robot {
     let total = 0;
 
     this.taskList.forEach((task: Task) => {
-      let time = task.eta * this.adjustment;
+      let rand = Math.random() / 10;
+
+      if (new Date().getMilliseconds() % 2 === 0) {
+        rand += 1;
+      } else {
+        rand = 1 - rand;
+      }
+
+      let time = Math.round(task.eta * this.adjustment * rand);
       total += time;
 
       setTimeout(
