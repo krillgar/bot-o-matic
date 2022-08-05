@@ -15,6 +15,7 @@ export class EditRobotComponent implements OnInit, OnDestroy {
   private readonly subs: Subscription[] = [];
 
   public completedTasks: string[] = [];
+  public displayProgress = false;
   public robot: Robot | null = null;
   public tasks: Task[] = [];
   public total = 0;
@@ -42,6 +43,10 @@ export class EditRobotComponent implements OnInit, OnDestroy {
               if (item.trim().length > 0) {
                 this.completedTasks.push(item);
               }
+
+              if (this.completedTasks.length === this.tasks.length) {
+                this.displayProgress = false;
+              }
             }));
         }
       })
@@ -63,9 +68,10 @@ export class EditRobotComponent implements OnInit, OnDestroy {
   }
 
   public runTasks(): void {
+    this.displayProgress = true;
     this.completedTasks = [];
     this.total = 0;
 
-    this.total = this.robot?.performTasks() ?? 0;
+    this.total = (this.robot?.performTasks() ?? 0) / 1000;
   }
 }
