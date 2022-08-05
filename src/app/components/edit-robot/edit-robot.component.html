@@ -56,12 +56,24 @@
     </div>
   </div>
   <div
+    class="progress-row"
+    fxLayout="row"
+    *ngIf="displayProgress"
+  >
+    <div fxFlex="100%">
+      <mat-progress-bar
+        color="primary"
+        mode="indeterminate"
+      ></mat-progress-bar>
+    </div>
+  </div>
+  <div
     fxLayout="row"
     *ngIf="total !== 0 && completedTasks.length === tasks.length"
     class="total"
   >
     <div fxFlex="100%" fxLayoutAlign="left">
-      <h4>Completed all tasks in {{ total }} milliseconds.</h4>
+      <h4>Completed all tasks in {{ total }} seconds.</h4>
     </div>
   </div>
 </div>
