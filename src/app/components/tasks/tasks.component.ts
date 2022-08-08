@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
 import { Subscription } from 'rxjs';
+import { Robot } from 'src/app/models/robot';
 import { Task } from 'src/app/models/task';
+import { RobotService } from 'src/app/services/robot.service';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -23,7 +25,8 @@ export class TasksComponent implements OnInit, OnDestroy {
   public tasks: Task[] = [];
 
   constructor(
-    private readonly taskService: TaskService
+    private readonly taskService: TaskService,
+    private readonly robotService: RobotService
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +41,14 @@ export class TasksComponent implements OnInit, OnDestroy {
             this.select.value = null;
           }
         })
+    );
+
+    this.subs.push(
+      this.robotService.current().subscribe(
+        () => {
+          this.taskService.resetTasks();
+        }
+      )
     );
   }
 
