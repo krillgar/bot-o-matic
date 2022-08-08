@@ -34,6 +34,8 @@ export class EditRobotComponent implements OnInit, OnDestroy {
       this.robotService.current().subscribe((robot: Robot) => {
         this.robot = robot;
 
+        this.completedTasks = [];
+
         if (!!robot) {
           const article = this.anCharacters.indexOf(robot.type[0].toLowerCase()) > -1 ? 'An' : 'A';
           this.type = `${article} ${robot.type}`;
