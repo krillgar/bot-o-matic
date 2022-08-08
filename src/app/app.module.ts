@@ -17,6 +17,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { LeaderBoardComponent } from './components/leader-board/leader-board.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     RobotComponent,
     RobotListComponent,
     TasksComponent,
-    EditRobotComponent
+    EditRobotComponent,
+    LeaderBoardComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatIconModule,
     MatChipsModule,
     MatListModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,20 @@
+<div fxLayout="row">
+  <div fxFlex="95%">
+    <mat-accordion>
+      <mat-expansion-panel hideToggle expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Leaderboard
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item
+            *ngFor="let leader of leaders; index as i"
+          >
+            {{ i + 1 }}) {{ leader.name }} ({{ leader.time }}s)
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
