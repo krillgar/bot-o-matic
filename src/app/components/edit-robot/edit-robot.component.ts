@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Robot } from 'src/app/models/robot';
 import { Task } from 'src/app/models/task';
+import { LeaderBoardService } from 'src/app/services/leader-board.service';
 import { RobotService } from 'src/app/services/robot.service';
 import { TaskService } from 'src/app/services/task.service';
 
@@ -24,7 +25,8 @@ export class EditRobotComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly robotService: RobotService,
-    private readonly taskService: TaskService
+    private readonly taskService: TaskService,
+    private readonly leaderBoardService: LeaderBoardService
   ) { }
 
   ngOnInit(): void {
@@ -73,5 +75,7 @@ export class EditRobotComponent implements OnInit, OnDestroy {
     this.total = 0;
 
     this.total = (this.robot?.performTasks() ?? 0) / 1000;
+
+    this.leaderBoardService.add({name: this.robot?.name || '', time: this.total});
   }
 }
