@@ -20,6 +20,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   public select!: MatSelect;
 
   private readonly subs: Subscription[] = [];
+  private robot!: Robot;
 
   public chosenTask = '';
   public tasks: Task[] = [];
@@ -29,12 +30,26 @@ export class TasksComponent implements OnInit, OnDestroy {
     private readonly robotService: RobotService
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.taskService.resetTasks();
 
     this.subs.push(
       this.taskService.tasks().subscribe(
         (tasks: Task[]) => {
+          if (!!this.robot) {
+            this.subs.push(
+              this.robot.tasks().subscribe(
+                (robotTasks: Task[]) => {
+                  robotTasks.forEach((rt: Task) => {
+                    tasks = tasks.filter((t: Task) => rt.description !== t.description);
+                  });
+
+                  this.tasks = tasks;
+                }
+              )
+            )
+          }
+
           this.tasks = tasks;
 
           if (!!this.select) {
@@ -45,14 +60,16 @@ export class TasksComponent implements OnInit, OnDestroy {
 
     this.subs.push(
       this.robotService.current().subscribe(
-        () => {
+        (robot: Robot | null) => {
+          this.robot = robot || {} as Robot;
+
           this.taskService.resetTasks();
         }
       )
     );
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
       this.subs.forEach((sub: Subscription) => {
         sub.unsubscribe();
       });

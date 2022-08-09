@@ -8,10 +8,18 @@
     <mat-label>{{robot.name}}</mat-label>
     <button
       mat-flat-button
-      color="accent"
+      color="primary"
       (click)="editRobot(robot)"
     >
       Edit
+    </button>
+    <button
+      class="delete"
+      mat-flat-button
+      color="warn"
+      (click)="deleteRobot(robot)"
+    >
+      Delete
     </button>
   </div>
 </div>

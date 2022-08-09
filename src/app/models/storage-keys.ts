@@ -1,3 +1,4 @@
 export enum StorageKeys {
-  LeaderBoard = 'LEADERBOARD'
+  LeaderBoard = 'LEADERBOARD',
+  Robots = 'ROBOTS'
 }
