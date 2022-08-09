@@ -30,4 +30,8 @@ export class RobotListComponent implements OnInit, OnDestroy {
   public editRobot(robot: Robot): void {
     this.service.setCurrentRobot(robot);
   }
+
+  public deleteRobot(robot: Robot): void {
+    this.service.removeRobot(robot);
+  }
 }

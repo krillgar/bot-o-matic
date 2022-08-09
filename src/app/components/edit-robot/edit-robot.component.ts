@@ -31,27 +31,38 @@ export class EditRobotComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs.push(
-      this.robotService.current().subscribe((robot: Robot) => {
-        this.robot = robot;
+      this.robotService.current().subscribe((robot: Robot | null) => {
+        if (robot) {
+          this.robot = robot;
 
-        this.completedTasks = [];
+          this.completedTasks = [];
 
-        if (!!robot) {
-          const article = this.anCharacters.indexOf(robot.type[0].toLowerCase()) > -1 ? 'An' : 'A';
-          this.type = `${article} ${robot.type}`;
+          if (!!robot) {
+            const article = this.anCharacters.indexOf(robot.type[0].toLowerCase()) > -1 ? 'An' : 'A';
+            this.type = `${article} ${robot.type}`;
 
-          this.subs.push(this.robot.tasks().subscribe((tasks: Task[]) => this.tasks = tasks));
+            this.subs.push(
+              this.robot.tasks().subscribe(
+                (tasks: Task[]) => this.tasks = tasks
+            ));
 
-          this.subs.push(
-            this.robot.processedTasks().subscribe((item: string) => {
-              if (item.trim().length > 0) {
-                this.completedTasks.push(item);
-              }
+            this.subs.push(
+              this.robot.processedTasks().subscribe((item: string) => {
+                if (item.trim().length > 0) {
+                  this.completedTasks.push(item);
+                }
 
-              if (this.completedTasks.length === this.tasks.length) {
-                this.displayProgress = false;
-              }
-            }));
+                if (this.completedTasks.length === this.tasks.length) {
+                  this.displayProgress = false;
+                }
+              }));
+          }
+        } else {
+          this.robot = null;
+          this.completedTasks = [];
+          this.tasks = [];
+          this.type = '';
+          this.displayProgress = false;
         }
       })
     );

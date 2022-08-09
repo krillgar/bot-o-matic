@@ -4,8 +4,8 @@ import { RobotTypes } from "./robot-types";
 import { Task } from "./task";
 
 export abstract class BaseRobot implements Robot {
-  private taskList: Task[] = [];
-  private readonly _tasks = new BehaviorSubject<Task[]>([]);
+  private taskList: Task[];
+  private readonly _tasks: BehaviorSubject<Task[]>;
   private readonly _processedTasks = new BehaviorSubject<string>('');
 
   public readonly type: string = '';
@@ -13,12 +13,15 @@ export abstract class BaseRobot implements Robot {
   constructor(
     public readonly name: string,
     private readonly adjustment: number,
-    robotType: RobotTypes
+    robotType: RobotTypes,
+    tasks: Task[]
   ) {
     if (adjustment === 0) {
       this.adjustment = 1;
     }
 
+    this.taskList = tasks;
+    this._tasks = new BehaviorSubject<Task[]>(this.taskList);
     this.type = RobotTypes[robotType];
   }
 

@@ -12,7 +12,7 @@ export class LeaderBoardService {
   private readonly _leaders = new BehaviorSubject<LeaderBoardItem[]>([]);
 
   constructor(private readonly localStorage: LocalStorageService) {
-    this.leaderList = this.localStorage.getData(StorageKeys.LeaderBoard || []);
+    this.leaderList = this.localStorage.getData(StorageKeys.LeaderBoard) || [];
     this._leaders.next(this.leaderList);
   }
 
