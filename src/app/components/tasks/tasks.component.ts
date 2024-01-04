@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { MatSelect } from '@angular/material/select';
+import { MatLegacySelect as MatSelect } from '@angular/material/legacy-select';
 import { Subscription } from 'rxjs';
 import { Robot } from 'src/app/models/robot';
 import { Task } from 'src/app/models/task';
